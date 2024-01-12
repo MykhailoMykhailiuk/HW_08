@@ -1,8 +1,8 @@
 from datetime import date, datetime, timedelta
 
 
-
 def get_birthdays_per_week(users):
+
     # Реалізуйте тут домашнє завдання
     if not users:
         return {}
@@ -17,27 +17,27 @@ def get_birthdays_per_week(users):
 
     for user in users:
 
-        bd_year = user['birthday'].replace(year = current_day.year)
+        bd_year = user['birthday'].replace(year=current_day.year)
 
-        #Якщо день народження пройшов - переносимо на наступний рік
+        # Якщо день народження пройшов - переносимо на наступний рік
         if current_day > bd_year:
-            bd_year = bd_year.replace(year = current_day.year + 1)
+            bd_year = bd_year.replace(year=current_day.year + 1)
 
-        #Якщо день народження Субота або Неділя - переносимо на Понеділок
+        # Якщо день народження Субота або Неділя - переносимо на Понеділок
         if bd_year.weekday() == 5:
             bd_year += timedelta(days=2)
         elif bd_year.weekday() == 6:
-                bd_year += timedelta(days=1)
+            bd_year += timedelta(days=1)
                    
-        user_bd_week_day = bd_year.strftime('%A')
+        week_day = bd_year.strftime('%A')
         
-        #Перевіпяємо чи день народження в діапазоні 7 днів
+        # Перевіпяємо чи день народження в діапазоні 7 днів
         if current_day <= bd_year <= (current_day + interval):
 
-            result_dict[user_bd_week_day] = [user['name']] + result_dict.get(user_bd_week_day, [])
+            result_dict[week_day] = [user['name']] + result_dict.get(week_day, [])  # noqa: E501
     
-    #Видаляємо порожні дні зі словника
-    result_dict = {key:value for key, value in result_dict.items() if value != []}
+    # Видаляємо порожні дні зі словника
+    result_dict = {key: value for key, value in result_dict.items() if value != []}  # noqa: E501
 
     if 'Monday' in result_dict:
         result_dict['Monday'].reverse()
@@ -70,6 +70,6 @@ if __name__ == "__main__":
 
     result = get_birthdays_per_week(users)
     print(result)
-     #Виводимо результат
+    # Виводимо результат
     for day_name, names in result.items():
         print(f"{day_name}: {', '.join(names)}")
