@@ -6,7 +6,7 @@ def get_birthdays_per_week(users):
     # Реалізуйте тут домашнє завдання
     if not users:
         return {}
-    
+
     result_dict = {}
     day_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
     result_dict = dict.fromkeys(day_of_week, [])
@@ -28,14 +28,14 @@ def get_birthdays_per_week(users):
             bd_year += timedelta(days=2)
         elif bd_year.weekday() == 6:
             bd_year += timedelta(days=1)
-                   
+
         week_day = bd_year.strftime('%A')
-        
+
         # Перевіпяємо чи день народження в діапазоні 7 днів
         if current_day <= bd_year <= (current_day + interval):
 
             result_dict[week_day] = [user['name']] + result_dict.get(week_day, [])  # noqa: E501
-    
+
     # Видаляємо порожні дні зі словника
     result_dict = {key: value for key, value in result_dict.items() if value != []}  # noqa: E501
 
